@@ -1,0 +1,97 @@
+from sympy import *
+from sympy import *
+
+
+# Se establece x como símbolo
+
+x = symbols("x")
+
+print("Escribe tu ecuacion inicial")
+
+ecuacionInicial = input()
+
+# Convierte la cadena en una expresion
+
+ecuacionInicial = sympify(ecuacionInicial)
+
+derivada = ecuacionInicial.diff(x)
+
+print("Escribe el límite inferior del intervalo a evaluar")
+limInferior = int(input())
+
+print("Escribe el límite superior del intervalo a evaluar")
+limSuperior = int(input())
+
+print("Escribe el numero de decimales de exactitud que requieres")
+numDecimales = int(input())
+
+fDeEquis = {}
+
+'''
+
+Se crea diccionario de valores de y asociados a x,
+se evalua la funcion en el intervalo
+'''
+
+for contador in range (limInferior, limSuperior+1):
+    
+    respaldoEcuacionInicial = ecuacionInicial
+    ecuacionInicial = ecuacionInicial.subs(x, contador)
+    fDeEquis[contador] = ecuacionInicial.evalf()
+    ecuacionInicial = respaldoEcuacionInicial
+
+    print(ecuacionInicial)
+
+print (fDeEquis)
+
+# Se inicializa posicion anterior para que el primer valor del array pueda ser comparado con algo
+
+posicionAnterior = limInferior
+
+for posicion in fDeEquis:
+    
+    print ("posicion")
+    print (fDeEquis[posicion])
+    print("Posicion anterior")
+    print(posicionAnterior)
+   
+   # Al detectarse un cambio de signo en los valores de y, el proceso termina y equis cero es asignada
+
+    if (fDeEquis[posicionAnterior] < 0 and fDeEquis[posicion] > 0) or (fDeEquis[posicionAnterior] > 0 and fDeEquis[posicion] < 0): 
+
+        equisCero = (posicion + posicionAnterior) / 2
+        print (equisCero)
+        break
+    posicionAnterior = posicion
+
+
+# Se crea respaldo de ambas ecuaciones para no perder las expresiones al sustituirlas
+respaldoEcuacionInicial = ecuacionInicial
+respaldoDerivada = derivada
+
+# La primera iteración se hace fuera del ciclo para asignar valores iniciales
+equis = equisCero
+equisEneMasUno = equisCero - ((ecuacionInicial.subs(x, equis)) / (derivada.subs(x, equis)))
+equisEneMasUno = equisEneMasUno.evalf()
+
+
+'''
+Comienza el ciclo para encontrar valor de x, el ciclo
+se rompe una vez que la cantidad de decimales deseados
+es igual en xn y xn+1
+'''
+
+while(round(equis, numDecimales)) != (round(equisEneMasUno, numDecimales)):
+    
+    equis = equisEneMasUno
+
+    equisEneMasUno = equis - ((ecuacionInicial.subs(x, equis)) / (derivada.subs(x, equis)))
+
+    equisEneMasUno = equisEneMasUno.evalf()
+
+    ecuacionInicial = respaldoEcuacionInicial
+
+    derivada = respaldoDerivada
+
+
+print(f"La raiz de tu ecuación en el intervalo dado es {round(equis, numDecimales)}")
