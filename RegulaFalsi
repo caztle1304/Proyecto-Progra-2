@@ -1,0 +1,129 @@
+from sympy import *
+from math import *
+
+# Se establece x como simbolo
+
+x = symbols("x")
+
+print("Escribe tu ecuacion inicial")
+ecuacionInicial = input()
+
+# Convierte cadena a una expresion
+
+ecuacionInicial = sympify(ecuacionInicial)
+
+
+print("Escribe el limite inferior del intervalo a evaluar")
+limInferior = int(input())
+
+print("Escribe el limite superior del intervalo a evaluar")
+limSuperior = int(input())
+
+print("Escribe el numero de decimales de exactitud que requieres")
+numDecimales = int(input())
+
+fDeEquis = {}
+
+'''
+Crea diccionario de valores de y asociados a x,
+se evalua la funcion en el intervalo dado
+'''
+respaldoEcuacionInicial = ecuacionInicial
+
+for contador in range (limInferior, limSuperior+1):
+    
+    ecuacionInicial = ecuacionInicial.subs(x, contador)
+    fDeEquis[contador] = ecuacionInicial.evalf()
+    ecuacionInicial = respaldoEcuacionInicial
+
+    print(ecuacionInicial)
+
+print (fDeEquis)
+
+
+# Se inicializa posicion anterior para que el primer valor del array pueda ser compardo con algo
+
+posicionAnterior = limInferior
+
+for posicion in fDeEquis:
+    
+    print ("posicion")
+    print (posicion)
+    print("Posicion anterior")
+    print(posicionAnterior)
+   
+    # Si se detecta cambio de signo en f(x), a y b son asignados y el ciclo se rompe
+
+    if (fDeEquis[posicionAnterior] < 0 and fDeEquis[posicion] > 0) or (fDeEquis[posicionAnterior] > 0 and fDeEquis[posicion] < 0): 
+
+        a = posicionAnterior
+
+        b = posicion
+
+        break
+    posicionAnterior = posicion
+
+
+# Se obtiene f(a)
+
+efeDeA = ecuacionInicial.subs(x, a)
+
+efeDeA = efeDeA.evalf()
+
+# Se obtiene f(b)
+
+efeDeB = ecuacionInicial.subs(x, b)
+
+efeDeB = efeDeB.evalf()
+
+# Se sustituye la formula para sacar la aproximacion inicial
+
+equisCero = ((a * efeDeB) - (b * efeDeA)) / (efeDeB - efeDeA)
+
+efeDeEquisCero = ecuacionInicial.subs(x, equisCero)
+
+efeDeEquisCero = efeDeEquisCero.evalf()
+
+# Se aplican los criterios de abajo para asignar k
+
+if efeDeA * efeDeEquisCero < 0:
+   
+   k = limInferior
+
+if efeDeB * efeDeEquisCero < 0:
+    
+    k = limSuperior
+
+# Se obtiene f(k)
+
+efeDeK = ecuacionInicial.subs(x, k)
+
+efeDeK = efeDeK.evalf()
+
+# Se hace la primera iteracion fuera del cicll para asignar valores iniciales
+
+equisEneMasUno = ((equisCero * efeDeK) - (k * efeDeEquisCero)) / (efeDeK - efeDeEquisCero)
+
+equisEne = equisCero
+ 
+# Se hace el ciclo sustituyendo en la formula hasta obtener la precision deseada
+
+while (round(equisEne, numDecimales)) != (round(equisEneMasUno, numDecimales)):
+
+    equisEne = equisEneMasUno
+
+    efeDeEquisEne = ecuacionInicial.subs(x, equisEne)
+
+    efeDeEquisEne = efeDeEquisEne.evalf()
+
+    efeDeK = ecuacionInicial.subs(x, k)
+
+    efeDeK = efeDeK.evalf()
+
+    equisEneMasUno = ((equisEne * efeDeK) - (k * efeDeEquisEne)) / (efeDeK - efeDeEquisEne)
+
+    print(equisEneMasUno)
+
+print(f"La raiz de tu ecuacion en el intervalo dado es {equisEne}")
+
+
