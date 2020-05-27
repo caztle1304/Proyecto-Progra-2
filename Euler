@@ -1,0 +1,72 @@
+from math import *
+from sympy import *
+
+# Establece x como simbolo
+
+x = symbols("x")
+
+# Establece y como simbolo
+
+y = symbols("y")
+
+print("Escribe tu ecuacion inicial")
+
+ecuacionInicial = input()
+
+# Convierte la cadena a una expresion
+
+ecuacionInicial = sympify(ecuacionInicial)
+
+print("Escribe tu x0")
+
+equisCero = int(input())
+
+print("Escribe tu y0")
+
+yeCero = int(input())
+
+print("Escribe la x para la cual quieres la solucion")
+
+equisSolucion = int(input())
+
+print("Escribe el ancho te banda h")
+
+h = float(input())
+
+# Se le asigna el valor y0 a yn para iniciar el ciclo
+
+yeEne = yeCero
+
+# Se le asigna el valor x0 a xn para iniciar el ciclo
+
+equisEne = equisCero
+
+# Se crea respaldo de ecuacion inicial para no perderla
+
+respaldoEcuacionInicial = ecuacionInicial
+
+# Se crea el limite del ciclo para saber cuantas veces repetirlo
+
+finalCiclo = equisSolucion/h
+
+# Se convierte en int para que pueda ser aplicado en el ciclo
+
+finalCiclo = int(finalCiclo)
+
+# Se aplica la formula cuantas veces se requiera
+
+for contador in range (equisCero, finalCiclo):
+
+    ecuacionInicial = respaldoEcuacionInicial
+
+    ecuacionInicial = ecuacionInicial.subs(x, equisEne).subs(y, yeEne)
+
+    ecuacionInicial = ecuacionInicial.evalf()
+
+    yeEneMasUno = yeEne + h*ecuacionInicial
+
+    yeEne = yeEneMasUno
+
+    equisEne = equisEne + h
+
+print(f"La solucion para tu ecuacion con la x dada es {yeEneMasUno}")    
