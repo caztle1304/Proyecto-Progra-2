@@ -1,0 +1,98 @@
+from sympy import *
+from math import *
+
+# Se establece x como simbolo
+
+x = symbols("x")
+
+print("Ingresa tu ecuacion inicial")
+
+ecuacionInicial = input()
+
+# Convierte cadena a una expresion
+
+ecuacionInicial = sympify(ecuacionInicial)
+
+print("Ingresa el limite inferior del intervalo a evaluar")
+
+limInferior = int(input())
+
+print("Ingresa el limite superior del intervalo a evaluar")
+
+limSuperior = int(input())
+
+print("Ingresa el numero de bandas que quieres usar")
+
+bandas = int(input())
+
+# Se asigna el intervalo que aumentara en cada cambio de x
+
+h = (limSuperior - limInferior) / bandas
+
+# Se crea respaldo de ecuacion inicial para no perderla
+
+respaldoEcuacionInicial = ecuacionInicial
+
+# Se crea diccionario vacio de x asociados a su f(x)
+
+fDeEquis = {}
+
+# Se inicia el acumulador al limite inferior para empezar la sustitucion de valores desde ahi
+
+acumulador = limInferior
+
+'''
+Se añaden valores de f(x) asociados a x, se exluyen x0 y xn
+para que no se multiplique por 4 o por 2 al hacer la multiplicacion de la formula
+'''
+
+for contador in range(bandas-1):
+
+    acumulador = acumulador + h
+    respaldoEcuacionInicial = ecuacionInicial
+    ecuacionInicial = ecuacionInicial.subs(x, acumulador)
+    fDeEquis[contador] = ecuacionInicial.evalf()
+    ecuacionInicial = respaldoEcuacionInicial
+
+print(fDeEquis)
+
+acumulador4 = 0
+acumulador2 = 0
+
+'''
+En el acumulador 4 se guarda el resultado de multiplicar por 4
+las f(x) correspondientes.
+En el acumulador 2 se hace lo mismo que con el 2 pero multiplicando
+por 2 en lugar de por 4
+'''
+
+for contador in range(0, bandas-1, 2):
+
+    acumulador4 =  acumulador4 + (4 * fDeEquis[contador])
+    print("contador 4")
+    print(contador)
+    
+for contador in range(1, bandas-1, 2):
+
+    acumulador2 = acumulador2 + (2 * fDeEquis[contador])
+    print("contador 2")
+    print(contador)
+
+# Se evalua la funcion en x0    
+
+yeCero = ecuacionInicial.subs(x, limInferior)
+
+yeCero = yeCero.evalf()
+
+# Se evalua la funcion en xn
+
+yeEne = ecuacionInicial.subs(x, limSuperior)
+
+yeEne = yeEne.evalf()
+
+#Se sustituye los valores obtenidos en la formula
+
+area = (h/3) * (yeCero + acumulador2 + acumulador4 + yeEne)
+
+
+print(f"El area bajo la curva en  los intervalos dados es {area}")
