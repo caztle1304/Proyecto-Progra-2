@@ -1,0 +1,212 @@
+from math import *
+from sympy import *
+import numpy
+
+# Crea simbolo de x
+
+x = symbols("x")
+
+print("Ingresa tu ecuación inicial")
+
+ecuacionInicial = input()
+
+ecuacionInicial = sympify(ecuacionInicial)
+
+print("Ingresa el limite inferior del intervalo a evaluar")
+
+limInferior = int(input())
+
+print("Ingresa el limite superior del intervalo a evaluar")
+
+limSuperior = int(input())
+
+print("Ingresa los decimales de exactitud que quieres")
+
+numDecimales = int(input())
+
+# Se crea matriz para guardar los valores de I y sus refinamientos
+
+matriz = numpy.zeros(shape = (10,10), dtype = float)
+
+efeDeA = ecuacionInicial.subs(x, limInferior)
+
+efeDeA = efeDeA.evalf()
+
+efeDeB = ecuacionInicial.subs(x, limSuperior)
+
+efeDeB = efeDeB.evalf()
+
+# Se definen valores iniciales que se usarán para las formulas posteriores
+
+c = limSuperior - limInferior
+
+a = limInferior
+
+b = limSuperior
+
+# Se hace la primera aproximacion de i fuera del ciclo para asignar valres iniciales
+
+j = (1/2) * (efeDeA + efeDeB)
+
+i = c * j
+
+# Se asigna la primera aproximacion de i 
+
+matriz[0,0] = round(i, numDecimales)
+
+print(f"Esta es I1 {matriz[0,0]}")
+
+# Se dan valores iniciales a variables que entrarán en ciclo while
+
+
+Variable que se ira multiplicando por 2,se ocipa para la formula de las aproximaciones de I 
+
+
+contadoriMultDeDos = 1
+
+
+# Variable que se ira multiplicando por 4, se usa para los refinamientos de las aproximaciones de I
+
+
+contadoriMultDeCuatro = 1
+
+# Variable que se ira multiplicando por 2, se usa para los denominadores de j
+
+contadorjDenominador = 1
+
+# Variable que se multiplica por 2 cada ciclo del while para determinar el numero de ceces que se repetira la suma de j
+
+acumulador = 1 
+
+# variable que ira sumando 1 cada ciclo del while para ir cambiando de renglon en la matriz
+
+acumulador2 = 0
+
+# Variable que guarda los refinamientos de I y sus aproximaciones anteriores para comparar
+
+valorAnterior = round(i, numDecimales)
+
+#  variable que guarda refinamientos y aproximaciones de I para comparar con sus anteriores, se asigna a -1 porque no hay area negativa
+
+valor = -1
+
+while valorAnterior != valor:
+
+
+    acumulador = acumulador * 2
+
+    acumulador2 = acumulador2 + 1
+
+    # Se asigna jAnterior para sustituir en la formula de jn+1
+
+    jAnterior = j 
+    
+    print(f"vas en el renglon {acumulador}")
+
+    print("\n" + "\n")
+
+    print(f"Esta es j anterior {jAnterior}")
+
+    # El acumulador de la suma se vuelve cero otra vez para reiniciarlo
+
+    acumuladorSumaJ = 0
+
+    # Se guarda el valor anterior de I o su aproximacion para comparar con n+1
+
+    valorAnterior = round(i, numDecimales) 
+
+    # Se reinicia el contador de los numeradores de j a 1
+    
+    contadorjNumerador = 1
+
+    # El contador se multiplica por dos cada que hay un cambio de renglon en la matriz
+    
+    contadoriMultDeDos = contadoriMultDeDos * 2
+
+    # El contador se multiplica por 2 cada que hay cambio de renglon en matriz
+
+    contadorjDenominador = contadorjDenominador * 2
+
+    # El numero de repeticiones de la suma de j se calcula con la siguiente formula
+
+    repeticiones = acumulador - (acumulador / 2)
+
+    repeticiones = int(repeticiones)
+
+    print(f"acumulador es {acumulador}")
+
+    print(f"Repeticiones son {repeticiones}")
+
+    
+    for contador in range(repeticiones):
+
+        
+
+        print(f"Contador contadorjNumerador {contadorjNumerador}")
+
+        print(f"contadorjDenominador {contadorjDenominador}")
+
+        sustitucion = a + ((contadorjNumerador/contadorjDenominador) * c) 
+
+        sustitucion = ecuacionInicial.subs(x, sustitucion)
+
+        sustitucion = sustitucion.evalf()
+
+        acumuladorSumaJ = acumuladorSumaJ + sustitucion
+
+        # el contador del numerador ira sumando uno cada que se cambie de suma
+
+        contadorjNumerador = contadorjNumerador + 2
+
+    j = jAnterior + acumuladorSumaJ
+
+    for renglon in range(acumulador2, acumulador2 + 1):
+
+        # El condtador se multiplica por cuatro cada que hay un cambio de columna
+
+        contadoriMultDeCuatro = 1
+
+        for columna in range(acumulador2 + 1):
+
+
+            
+            # Si esta en la primera columna se aplica la formula sencilla de I = 1/n cJ
+            
+         
+            if columna == 0:
+
+                print(f"Esta es j de columna cero {j}")
+
+                print(f"Contador multiplo de dos {contadoriMultDeDos}")
+
+                i = (1/contadoriMultDeDos) * c * j
+
+                matriz[renglon, columna] = round(i, numDecimales)
+                print(f"Esta es i de columna cero {i}")
+
+            # Si no se esta en la primera columna se aplican las formulas mas complejas y su denominador va cambiando
+
+            if columna != 0: 
+
+            	# Multiplica por 4 el contador que se ira aplicando en la formula con cada cambio de columna
+
+                contadoriMultDeCuatro = contadoriMultDeCuatro * 4
+
+                print(f"Contador contadoriMultDeCuatro {contadoriMultDeCuatro}")
+
+                i = (1/(contadoriMultDeCuatro - 1)) * (contadoriMultDeCuatro * matriz[renglon, columna - 1] - matriz[renglon - 1, columna - 1])
+
+                matriz[renglon, columna] = round(i, numDecimales)
+
+                print(f"Esta es i de columna no cero {i}")
+
+                valor = round(i, numDecimales) 
+
+                valorAnterior = round(matriz[renglon, columna - 1], numDecimales)
+
+
+
+print(matriz)        
+print(f"El area bajo la curva en los intervalos dados es {round(i, numDecimales)}")
+
+
