@@ -19,17 +19,17 @@ ecuacionInicial = sympify(ecuacionInicial)
 
 print("Escribe tu x0")
 
-equisCero = int(input())
+equisCero = float(input())
 
 print("Escribe tu y0")
 
-yeCero = int(input())
+yeCero = float(input())
 
 print("Escribe la x para la cual quieres la solucion")
 
-equisSolucion = int(input())
+equisSolucion = float(input())
 
-print("Escribe el ancho te banda h")
+print("Escribe el ancho de banda h")
 
 h = float(input())
 
@@ -45,17 +45,11 @@ equisEne = equisCero
 
 respaldoEcuacionInicial = ecuacionInicial
 
-# Se crea el limite del ciclo para saber cuantas veces repetirlo
+contador = 0
 
-finalCiclo = equisSolucion/h
+while equisEne < equisSolucion:
 
-# Se convierte en int para que pueda ser aplicado en el ciclo
-
-finalCiclo = int(finalCiclo)
-
-# Se aplica la formula cuantas veces se requiera
-
-for contador in range (equisCero, finalCiclo):
+    contador = contador + 1
 
     ecuacionInicial = respaldoEcuacionInicial
 
@@ -63,10 +57,12 @@ for contador in range (equisCero, finalCiclo):
 
     ecuacionInicial = ecuacionInicial.evalf()
 
-    yeEneMasUno = yeEne + h*ecuacionInicial
+    yeEneMasUno = yeEne + h * ecuacionInicial
 
     yeEne = yeEneMasUno
 
     equisEne = equisEne + h
+
+    print(f"Y {contador} es {yeEne}")
 
 print(f"La solucion para tu ecuacion con la x dada es {yeEneMasUno}")    
