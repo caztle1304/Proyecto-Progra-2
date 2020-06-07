@@ -1,3 +1,35 @@
+'''NAME
+        2-DeLaCruzAngel-NewtonRhapson.py
+VERSION
+        1.0
+AUTHOR
+        Angel Adrian De la Cruz Castillo <angeldc@lcg.unam.mx>
+DESCRIPTION
+      Programa que calcula raíces de ecuaciones usando el metodo de Newton-Rhapson
+CATEGORY
+       Calculadora de raices de ecuaciones
+USAGE
+        EL usuario ingresa su ecuacion inicial, el intervalo a evaluar y el step de incremento en el intervalo
+ARGUMENTS
+  N/A
+DICCIONARIO DE VARIABLES
+ecuacionInicial : Ecuacion de la cual se obtendran las raices
+derivada: Derivada de la ecuacion inicial
+limSuperior: Limite superior del intervalo a evaluar
+limInferior: Limite inferior del intervalo a evaluar
+step: Paso de incremento al evaluar las funciones
+numDecimales: Numero de decimales de exactitud requeridos por el usuario
+fDeEquis: Diccionario de valores de X asociados a su funcion
+contador: contador auxiliar en los ciclos
+posicion: variable que guarda f(x) en la posicion n+1
+posicionAnterior: variable que guarda f(x) en la posicion n
+equisCero: aproximacion inicial de x (x0)
+equis: Aproximacion de xn
+equisEneMasUno: Aproximacion de xn+1
+
+
+'''
+
 from sympy import *
 from sympy import *
 
@@ -17,10 +49,13 @@ ecuacionInicial = sympify(ecuacionInicial)
 derivada = ecuacionInicial.diff(x)
 
 print("Escribe el límite inferior del intervalo a evaluar")
-limInferior = int(input())
+limInferior = float(input())
 
 print("Escribe el límite superior del intervalo a evaluar")
-limSuperior = int(input())
+limSuperior = float(input())
+
+print("Escribe el paso de aumento en la evaluacion de tu intervalo")
+step = float(input())
 
 print("Escribe el numero de decimales de exactitud que requieres")
 numDecimales = int(input())
@@ -32,18 +67,15 @@ fDeEquis = {}
 Se crea diccionario de valores de y asociados a x,
 se evalua la funcion en el intervalo
 '''
+contador = limInferior
 
-for contador in range (limInferior, limSuperior+1):
-    
-    respaldoEcuacionInicial = ecuacionInicial
-    ecuacionInicial = ecuacionInicial.subs(x, contador)
-    fDeEquis[contador] = ecuacionInicial.evalf()
-    ecuacionInicial = respaldoEcuacionInicial
+while contador < (limSuperior + step):
 
-    print(ecuacionInicial)
+    fDeEquis[contador] = ecuacionInicial.subs(x,contador)
+    fDeEquis[contador] = fDeEquis[contador].evalf()
+    contador = contador + step
 
-print (fDeEquis)
-
+print(fDeEquis)
 # Se inicializa posicion anterior para que el primer valor del array pueda ser comparado con algo
 
 posicionAnterior = limInferior
@@ -65,10 +97,6 @@ for posicion in fDeEquis:
     posicionAnterior = posicion
 
 
-# Se crea respaldo de ambas ecuaciones para no perder las expresiones al sustituirlas
-respaldoEcuacionInicial = ecuacionInicial
-respaldoDerivada = derivada
-
 # La primera iteración se hace fuera del ciclo para asignar valores iniciales
 equis = equisCero
 equisEneMasUno = equisCero - ((ecuacionInicial.subs(x, equis)) / (derivada.subs(x, equis)))
@@ -88,10 +116,6 @@ while(round(equis, numDecimales)) != (round(equisEneMasUno, numDecimales)):
     equisEneMasUno = equis - ((ecuacionInicial.subs(x, equis)) / (derivada.subs(x, equis)))
 
     equisEneMasUno = equisEneMasUno.evalf()
-
-    ecuacionInicial = respaldoEcuacionInicial
-
-    derivada = respaldoDerivada
 
 
 print(f"La raiz de tu ecuación en el intervalo dado es {round(equis, numDecimales)}")
