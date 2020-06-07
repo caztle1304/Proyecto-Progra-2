@@ -1,3 +1,36 @@
+'''NAME
+        1-DeLaCruzAngel-AproximacionesSucesivas.py
+VERSION
+        1.0
+AUTHOR
+        Angel Adrian De la Cruz Castillo <angeldc@lcg.unam.mx>
+DESCRIPTION
+      Programa que calcula raíces de ecuaciones usando el metodo de aproximaciones sucesivas
+CATEGORY
+       Calculadora de raices de ecuaciones
+USAGE
+        EL usuario ingresa su ecuacion inicial, el despeje deseado y los intervalos a evaluar 
+ARGUMENTS
+  N/A
+
+DICCIONARIO DE VARIABLES
+ecuacionInicial: Ecuacion intriducida por el usuario a la cual se quiere encontnrar la raiz
+ecuacionDespejada: Ecuacion con el despeje deseado por el usuario
+limInferior: Limite inferior del intervalo a evaluar
+limSuperior: Limite superior del intervalo a evaluar
+numDecimales: Numero de decimales de exactitud que se requiere
+fDeEquis: Diccionario donde se guardan valores de X y sus valores asociados Y
+contador: contador que se usa en ciclos
+posicionAnterior: Variable donde se guarda el valor de Y asociado a X
+posicion: Variable donde se guarda el valor de Y asociado a Xn+1
+equisCero: Guarda el valor de la primera aproximacion de X
+equis: Aproximacion de X
+equisEneMasUno: Aproximacion de Xn+1 que se ira comparando con equis
+
+
+
+'''
+
 from sympy import *
 from math import *
 
@@ -36,16 +69,11 @@ se evalua la funcion en el intervalo dado
 '''
 
 for contador in range (limInferior, limSuperior+1):
+
+    fDeEquis[contador] = ecuacionInicial.subs(x, contador)
+    fDeEquis[contador]=fDeEquis[contador].evalf()
+
     
-    respaldoEcuacionInicial = ecuacionInicial
-    ecuacionInicial = ecuacionInicial.subs(x, contador)
-    fDeEquis[contador] = ecuacionInicial.evalf()
-    ecuacionInicial = respaldoEcuacionInicial
-
-    print(ecuacionInicial)
-
-print (fDeEquis)
-
 
 # Se inicializa posicion anterior para que el primer valor del array pueda ser compardo con algo
 
@@ -53,12 +81,7 @@ posicionAnterior = limInferior
 
 for posicion in fDeEquis:
     
-    print ("posicion")
-    print (fDeEquis[posicion])
-    print("Posicion anterior")
-    print(posicionAnterior)
-   
-    # Si se detecta cambio de signo el valor de equis cero es asignada y el ciclo se rompe
+   # Si se detecta cambio de signo el valor de equis cero es asignada y el ciclo se rompe
 
     if (fDeEquis[posicionAnterior] < 0 and fDeEquis[posicion] > 0) or (fDeEquis[posicionAnterior] > 0 and fDeEquis[posicion] < 0): 
 
@@ -67,11 +90,8 @@ for posicion in fDeEquis:
         break
     posicionAnterior = posicion
 
-# Se crea respaldo de ecuacion para no perderla al substituir
 
-respaldoEcuacionDespejada = ecuacionDespejada
-
-# La primera iteracipn se hace fuera del ciclo para tener valores iniciales
+# La primera iteracion se hace fuera del ciclo para tener valores iniciales
 
 equis = equisCero
 equisEneMasUno = ecuacionDespejada.subs(x, equis)
@@ -86,14 +106,10 @@ es igual en xn y xn+1
 while (round(equis, numDecimales) != round(equisEneMasUno, numDecimales)):
 
     equis = equisEneMasUno
-    
-    ecuacionDespejada = respaldoEcuacionDespejada
 
-    ecuacionDespejada = ecuacionDespejada.subs(x, equis)
+    equisEneMasUno= ecuacionDespejada.subs(x, equis)
 
-    equisEneMasUno = ecuacionDespejada.evalf()
-    
-    ecuacionDespejada = respaldoEcuacionDespejada
+    equisEneMasUno = equisEneMasUno.evalf()
 
 
 print(f"La raíz de tu ecuación en el intervalo dado es {round(equis,numDecimales)}")
