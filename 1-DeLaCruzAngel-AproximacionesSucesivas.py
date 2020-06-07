@@ -53,10 +53,13 @@ ecuacionDespejada = input()
 ecuacionDespejada = sympify(ecuacionDespejada)
 
 print("Escribe el limite inferior del intervalo a evaluar")
-limInferior = int(input())
+limInferior = float(input())
 
 print("Escribe el limite superior del intervalo a evaluar")
-limSuperior = int(input())
+limSuperior = float(input())
+
+print("Escribe el paso de incremento en la evaluacion de tu funcion")
+step = float(input())
 
 print("Escribe el numero de decimales de exactitud que requieres")
 numDecimales = int(input())
@@ -67,12 +70,13 @@ fDeEquis = {}
 Crea diccionario de valores de y asociados a x,
 se evalua la funcion en el intervalo dado
 '''
+contador = limInferior
 
-for contador in range (limInferior, limSuperior+1):
+while contador < (limSuperior + step):
 
     fDeEquis[contador] = ecuacionInicial.subs(x, contador)
     fDeEquis[contador]=fDeEquis[contador].evalf()
-
+    contador = contador + step
     
 
 # Se inicializa posicion anterior para que el primer valor del array pueda ser compardo con algo
@@ -113,6 +117,9 @@ while (round(equis, numDecimales) != round(equisEneMasUno, numDecimales)):
 
 
 print(f"La raíz de tu ecuación en el intervalo dado es {round(equis,numDecimales)}")
+
+
+
 
 
 
