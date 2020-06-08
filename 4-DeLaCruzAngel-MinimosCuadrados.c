@@ -1,10 +1,44 @@
+/*NAME
+        4-DeLaCruzAngel-MinimosCuadrados.py
+VERSION
+        1.0
+AUTHOR
+        Angel Adrian De la Cruz Castillo <angeldc@lcg.unam.mx>
+DESCRIPTION
+      Programa que aproxima una ecuacion de grado n a un conjunto de puntos 
+CATEGORY
+       Aproximacion funcional
+USAGE
+        Usuario ingresa puntos que se tienen y grado de la ecuacion a aproximar
+ARGUMENTS
+  N/A
+DICCIONARIO DE VARIABLES
+valoresX : puntero hacia los valores de X de los puntos que se tienen
+valoresY: puntero hacia los valores de Y de los puntos que se tienen
+matriz: puntero a punteros para hacer matriz a para resolver sistema de ecuaciones
+xTemporal: guarda temporalmente un valor de X en una posicion n 
+yTemporal: guarda temporalmente un valor de Y en una posicion n 
+sumaX: acumulador que guarda el resultado de sumar las x elevadas a un grado n
+sumaXY: acumulador que guarda el resultado de sumar las x elevadas a un grado n y luego multiplicarlas por su Y asociada
+cantidadPuntos: cantidad de puntos que el usuario ingresara
+temporalMatriz: guarda temporalmente el valor de la matriz en una posicion n
+gradoEcuacion: grado de la ecuacion que se desea obtener
+contador: variable contadora auxiliar en los ciclos
+contador2: variable contadora auxiliar en los ciclos 
+potencia: variable que determina la potencia a la cual se elevara un valor de X segun la el renglon y columna en la que este
+iniciadorPotencia: determina en que numero iniciara la potencia para irse incrementando, con cada cambio de renglon aumenta en uno
+renglon: variable contadora auxiliar para recorrer la matriz
+columna:variable contadora auxiliar para recorrer la matriz
+
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 
 int main ()
 {
- float *valoresX, *valoresY, *renglones, *columnas, **matriz;
- float xTemporal, yTemporal, sumaX=0, sumaXY=0, cantidadPuntos, temporalMatriz, temporalDiagonalMatriz;
+ float *valoresX, *valoresY, **matriz;
+ float xTemporal, yTemporal, sumaX=0, sumaXY=0, cantidadPuntos, temporalMatriz;
  int gradoEcuacion, contador, contador2, potencia, iniciadorPotencia=-1, renglon, columna;
 
  printf("Introduzca la cantidad de puntos\n");
