@@ -37,7 +37,7 @@ columna:variable contadora auxiliar para recorrer la matriz
 
 int main ()
 {
- float *valoresX, *valoresY, **matriz;
+ float *valoresX=NULL, *valoresY=NULL, **matriz=NULL;
  float xTemporal, yTemporal, sumaX=0, sumaXY=0, cantidadPuntos, temporalMatriz;
  int gradoEcuacion, contador, contador2, potencia, iniciadorPotencia=-1, renglon, columna;
 
