@@ -1,3 +1,48 @@
+'''NAME
+        8-DeLaCruzAngel-Romberg.py
+VERSION
+        1.0
+AUTHOR
+        Angel Adrian De la Cruz Castillo <angeldc@lcg.unam.mx>
+DESCRIPTION
+      Programa que calcula area bajo la curva usando metodo de Romberg
+CATEGORY
+       Calculadora de area bajo la curva
+USAGE
+        Usuario ingresa su funcion y los limites superior e inferior del intervalo a evaluar
+ARGUMENTS
+  N/A
+DICCIONARIO DE VARIABLES
+ecuacionInicial: ecuacion inicial a partir de la cual se calcula area bajo la curva
+limInferior: limite inferior del intervalo del cual se obtendra el area
+limSuperior: limite superior del intervalo del cual de obtendra el area
+numDecimales: numero de decimales de exactitud que se requiere
+matriz: matriz donde se guardan las aproximaciones del area y sus refinamientos
+efeDeA: resultado de evaluar el limite inferior en la ecuacion dada
+efeDeB: resultado de evaluar el limite superior en la ecuacion dada
+c: Tamaño del intervalo a evaluar
+a: limite inferior que se usa para sustituir en las formulas
+b: limite superior que se usa para sustituir en las formulas
+j: variable usada para sustituir en la formula de las aproximaciones de I y sus refinamientos
+i: aproximaciones del area bajo la curva y sus refinamientos
+contadoriMultDeDos: variable que se multiplica por 2 para generar nuevas formulas de I cuantas veces sea necesario
+contadoriMultDeCuatro: variable que se multiplica por 4 para generar nuevas formulas de I cuantas veces sea necesario
+contadorjDenominador: variable que se multiplica por dos cuantas veces sea necesario para generar nuevas formulas de J
+contadorjNumerador: variable que va aumentando en 1 cuantas veces sea necesario para generar nuevas formulas de J
+repeticiones: variable que sirve para determinar el numero de veces que se efectuara la suma en J 
+acumulador: contador utilizado en la determinación de veces que se hace la suma de J
+acumulador2: contador usado para cambiar de renglon en la matriz
+valor: variable que guarda el valor del refinamiento de I en la posicion n
+valorAnterior: variable que guarda el valor del refinamiento de I en la posicion n-1
+contador: variable cuntadora usada para efectuar la suma de J n veces
+sustitucion: guarda resultado de realizar las sustituciones correspondientes en la formula para el calculo de J
+acumuladorSumaJ: guarda resultado final de la suma de J
+renglon: variable contador que sirve para recorrer los renglones de la matriz
+columna: variable contadora que sirve para recorrer las columnas de la matriz
+
+
+'''
+
 from math import *
 from sympy import *
 import numpy
@@ -14,11 +59,11 @@ ecuacionInicial = sympify(ecuacionInicial)
 
 print("Ingresa el limite inferior del intervalo a evaluar")
 
-limInferior = int(input())
+limInferior = float(input())
 
 print("Ingresa el limite superior del intervalo a evaluar")
 
-limSuperior = int(input())
+limSuperior = float(input())
 
 print("Ingresa los decimales de exactitud que quieres")
 
@@ -52,14 +97,12 @@ i = c * j
 
 # Se asigna la primera aproximacion de i 
 
-matriz[0,0] = round(i, numDecimales)
-
-print(f"Esta es I1 {matriz[0,0]}")
+matriz[0,0] = i
 
 # Se dan valores iniciales a variables que entrarán en ciclo while
 
 
-Variable que se ira multiplicando por 2,se ocipa para la formula de las aproximaciones de I 
+#Variable que se ira multiplicando por 2,se ocupa para la formula de las aproximaciones de I 
 
 
 contadoriMultDeDos = 1
@@ -74,7 +117,7 @@ contadoriMultDeCuatro = 1
 
 contadorjDenominador = 1
 
-# Variable que se multiplica por 2 cada ciclo del while para determinar el numero de ceces que se repetira la suma de j
+# Variable que se multiplica por 2 cada ciclo del while para determinar el numero de veces que se repetira la suma de j
 
 acumulador = 1 
 
@@ -90,7 +133,7 @@ valorAnterior = round(i, numDecimales)
 
 valor = -1
 
-while valorAnterior != valor:
+while round(valorAnterior, numDecimales) != round(valor, numDecimales):
 
 
     acumulador = acumulador * 2
@@ -100,12 +143,6 @@ while valorAnterior != valor:
     # Se asigna jAnterior para sustituir en la formula de jn+1
 
     jAnterior = j 
-    
-    print(f"vas en el renglon {acumulador}")
-
-    print("\n" + "\n")
-
-    print(f"Esta es j anterior {jAnterior}")
 
     # El acumulador de la suma se vuelve cero otra vez para reiniciarlo
 
@@ -133,18 +170,10 @@ while valorAnterior != valor:
 
     repeticiones = int(repeticiones)
 
-    print(f"acumulador es {acumulador}")
-
-    print(f"Repeticiones son {repeticiones}")
 
     
     for contador in range(repeticiones):
 
-        
-
-        print(f"Contador contadorjNumerador {contadorjNumerador}")
-
-        print(f"contadorjDenominador {contadorjDenominador}")
 
         sustitucion = a + ((contadorjNumerador/contadorjDenominador) * c) 
 
@@ -175,15 +204,10 @@ while valorAnterior != valor:
          
             if columna == 0:
 
-                print(f"Esta es j de columna cero {j}")
-
-                print(f"Contador multiplo de dos {contadoriMultDeDos}")
-
                 i = (1/contadoriMultDeDos) * c * j
 
-                matriz[renglon, columna] = round(i, numDecimales)
-                print(f"Esta es i de columna cero {i}")
-
+                matriz[renglon, columna] = i
+            
             # Si no se esta en la primera columna se aplican las formulas mas complejas y su denominador va cambiando
 
             if columna != 0: 
@@ -192,21 +216,24 @@ while valorAnterior != valor:
 
                 contadoriMultDeCuatro = contadoriMultDeCuatro * 4
 
-                print(f"Contador contadoriMultDeCuatro {contadoriMultDeCuatro}")
-
                 i = (1/(contadoriMultDeCuatro - 1)) * (contadoriMultDeCuatro * matriz[renglon, columna - 1] - matriz[renglon - 1, columna - 1])
 
-                matriz[renglon, columna] = round(i, numDecimales)
+                matriz[renglon, columna] = i
 
-                print(f"Esta es i de columna no cero {i}")
+                valor = i
 
-                valor = round(i, numDecimales) 
+                valorAnterior = matriz[renglon, columna - 1]
 
-                valorAnterior = round(matriz[renglon, columna - 1], numDecimales)
+print("Las matriz escalonada de aproximaciones y refinamientos de area es la siguiente")
 
-
-
-print(matriz)        
+print(matriz)
+        
 print(f"El area bajo la curva en los intervalos dados es {round(i, numDecimales)}")
+
+
+
+
+
+
 
 
