@@ -1,5 +1,5 @@
 '''NAME
-        5-DeLaCruzAngel-InterpolacionDeLagrange.py
+        5-DeLaCruzAngel-Lagrange.py
 VERSION
         1.0
 AUTHOR
@@ -95,7 +95,7 @@ for contadorI in range(cantidadPuntos):
 
     polinomio = (acumuladorNumerador / round(acumuladorDenominador, 5)) * listaY[contadorI]
 
-    # Se añade el polinomio a un acumulador para ir sumando los polinomios obtenidos
+    # Se anade el polinomio a un acumulador para ir sumando los polinomios obtenidos
 
     acumuladorPolinomio = acumuladorPolinomio + polinomio
 
@@ -115,3 +115,4 @@ print(acumuladorPolinomio)
 print("\n")
 
 print(f"Interpolando para el valor {valorInterpolar} se obtiene que \n f({valorInterpolar}) = {resultadoValorInterpolar}")
+
