@@ -38,6 +38,8 @@ from math import *
 
 x = symbols("x")
 
+print("Este programa encuentra raices de ecuaciones usando el metodo de aproximaciones sucesivas\n")
+
 print("Escribe tu ecuacion inicial")
 ecuacionInicial = input()
 
@@ -119,5 +121,6 @@ while (round(equis, numDecimales) != round(equisEneMasUno, numDecimales)):
 
 
 print(f"La raiz de tu ecuacion en el intervalo dado es {round(equis,numDecimales)}")
+
 
 
