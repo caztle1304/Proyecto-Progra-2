@@ -22,10 +22,10 @@ valorY: variable temporal que guarda el valor Y introducido por el usuario y pos
 valorInterpolar: el valor para el cual se desea hacer la interpolacion
 contadorI: contador auxiliar para realizar la suma de los valores X y Y al aplicarseles la formula
 contadorJ: contador auxiliar para realizar las multiplicaciones correspondientes de los valores de X 
-acumuladorPolinomio: acumula el resultado de sumar los polinomios resultantes de cada iteración
+acumuladorPolinomio: acumula el resultado de sumar los polinomios resultantes de cada iteracion
 acumuladorNumerador: acumula las multiplicaciones correspondientes al numerador del polinomio
 acumuladorDenominador: acumula las multiplicaciones correspondientes al denominador del polinomio
-polinomio: variable temporal que guarda el polnomio resultante de cada iteracion
+polinomio: variable temporal que guarda el polinomio resultante de cada iteracion
 resultadoValorInterpolar: resultado de hacer la interpolacion del valor introducido por el usuario
 '''
 
@@ -33,6 +33,8 @@ from math import *
 from sympy import *
 
 x = symbols("x")
+
+print("Este programa aproxima un polinomio a partir de puntos dados e interpola para el valor deseado")
 
 print("Ingrese la cantidad de puntos que se tienen")
 
