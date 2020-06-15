@@ -20,7 +20,7 @@ numDecimales: numero de decimales de exactitud que se requiere
 matriz: matriz donde se guardan las aproximaciones del area y sus refinamientos
 efeDeA: resultado de evaluar el limite inferior en la ecuacion dada
 efeDeB: resultado de evaluar el limite superior en la ecuacion dada
-c: Tamaño del intervalo a evaluar
+c: Tamano del intervalo a evaluar
 a: limite inferior que se usa para sustituir en las formulas
 b: limite superior que se usa para sustituir en las formulas
 j: variable usada para sustituir en la formula de las aproximaciones de I y sus refinamientos
@@ -30,7 +30,7 @@ contadoriMultDeCuatro: variable que se multiplica por 4 para generar nuevas form
 contadorjDenominador: variable que se multiplica por dos cuantas veces sea necesario para generar nuevas formulas de J
 contadorjNumerador: variable que va aumentando en 1 cuantas veces sea necesario para generar nuevas formulas de J
 repeticiones: variable que sirve para determinar el numero de veces que se efectuara la suma en J 
-acumulador: contador utilizado en la determinación de veces que se hace la suma de J
+acumulador: contador utilizado en la determinacion de veces que se hace la suma de J
 acumulador2: contador usado para cambiar de renglon en la matriz
 valor: variable que guarda el valor del refinamiento de I en la posicion n
 valorAnterior: variable que guarda el valor del refinamiento de I en la posicion n-1
@@ -51,7 +51,9 @@ import numpy
 
 x = symbols("x")
 
-print("Ingresa tu ecuación inicial")
+print("Este programa calcula area bajo la curva usando el metodo de Romberg\n")
+
+print("Ingresa tu ecuacion inicial")
 
 ecuacionInicial = input()
 
@@ -59,11 +61,13 @@ ecuacionInicial = sympify(ecuacionInicial)
 
 print("Ingresa el limite inferior del intervalo a evaluar")
 
-limInferior = float(input())
+limInferior = input()
+limInferior = sympify(limInferior)
 
 print("Ingresa el limite superior del intervalo a evaluar")
 
-limSuperior = float(input())
+limSuperior = input()
+limSuperior = sympify(limSuperior)
 
 print("Ingresa los decimales de exactitud que quieres")
 
@@ -81,7 +85,7 @@ efeDeB = ecuacionInicial.subs(x, limSuperior)
 
 efeDeB = efeDeB.evalf()
 
-# Se definen valores iniciales que se usarán para las formulas posteriores
+# Se definen valores iniciales que se usaran para las formulas posteriores
 
 c = limSuperior - limInferior
 
@@ -89,7 +93,7 @@ a = limInferior
 
 b = limSuperior
 
-# Se hace la primera aproximacion de i fuera del ciclo para asignar valres iniciales
+# Se hace la primera aproximacion de i fuera del ciclo para asignar valores iniciales
 
 j = (1/2) * (efeDeA + efeDeB)
 
@@ -99,7 +103,7 @@ i = c * j
 
 matriz[0,0] = i
 
-# Se dan valores iniciales a variables que entrarán en ciclo while
+# Se dan valores iniciales a variables que entraran en ciclo while
 
 
 #Variable que se ira multiplicando por 2,se ocupa para la formula de las aproximaciones de I 
@@ -229,11 +233,3 @@ print("Las matriz escalonada de aproximaciones y refinamientos de area es la sig
 print(matriz)
         
 print(f"El area bajo la curva en los intervalos dados es {round(i, numDecimales)}")
-
-
-
-
-
-
-
-
