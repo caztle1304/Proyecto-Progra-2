@@ -21,6 +21,7 @@ h: ancho de las bandas a usar para calcular la solucion
 equisEne: Xn usada para calcular la apriximacion de Yn+1
 yeEne: Aproximacion Yn de la solucion final
 contador: contador usado para imprimir la aproximacion de Yn
+contador2: contador usado para determinar el numero de veces que se repetira un ciclo 
 k1: valor a sustituir en la formula final de la aprixmacion de Y
 k2: valor a sustituir en la formula final de la aproximacion de Y
 k3: valor a sustituir en la formula final de la aproximacion de Y
@@ -32,10 +33,13 @@ sustitucionY: valor a sustituir en Y en f(x,y) segun corresponda en kn
 '''
 from math import *
 from sympy import *
+from decimal import *
 
 x = symbols("x")
 
 y = symbols("y")
+
+print("Este programa calcula soluciones de ecuaciones diferenciales usando metodo de Runge-Kutta\n")
 
 print("Ingresa tu ecuacion inicial en el formato dy/dx = ecuacion")
 
@@ -47,9 +51,9 @@ print("Ingresa tu x(0)")
 
 equisCero = input()
 
-equisCero = sympify(equisCero)
+equisCero = Decimal(equisCero)
 
-print("Ingrea tu y(0)")
+print("Ingresa tu y(0)")
 
 yeCero = input()
 
@@ -59,23 +63,27 @@ print("Escribe la x para la cual quieres la solucion")
 
 equisSolucion = input()
 
-equisSolucion = sympify(equisSolucion)
+equisSolucion = Decimal(equisSolucion)
 
 print("Ingresa el ancho de tu banda h")
 
 h = input()
 
-h = sympify(h)
+h = Decimal(h)
 
 # Se asignan valores iniciales para entrar en el ciclo while
 
-equisEne = equisCero
+equisEne = sympify(equisCero)
 
 yeEne = yeCero
 
 contador = 0
 
-while equisEne < equisSolucion:
+# Se aplica la formula dentro del range para determinar el numero de veces que es necesario repetir el ciclo for 
+
+repeticiones = int(((equisSolucion - equisCero)/h))
+
+for contador2 in range(1, repeticiones + 1):
 
     contador = contador + 1
 
@@ -148,5 +156,7 @@ while equisEne < equisSolucion:
     print("\n" + "\n")
 
     equisEne = equisEne + h
+
+    equisEne = equisEne.evalf()
 
 print(f"La solucion de tu ecuacion en la x dada es {yeEne.evalf()}")
