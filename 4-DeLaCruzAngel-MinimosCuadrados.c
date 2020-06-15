@@ -1,5 +1,5 @@
 /*NAME
-        4-DeLaCruzAngel-MinimosCuadrados.py
+        4-DeLaCruzAngel-MinimosCuadrados.c
 VERSION
         1.0
 AUTHOR
@@ -41,9 +41,10 @@ int main ()
  float xTemporal, yTemporal, sumaX=0, sumaXY=0, cantidadPuntos, temporalMatriz;
  int gradoEcuacion, contador, contador2, potencia, iniciadorPotencia=-1, renglon, columna;
 
- printf("Introduzca la cantidad de puntos\n");
+ printf("Este programa aproxima una funcion a partir de un conjunto de puntos con el metodo de minimos cuadrados\n");
+ printf("Introduzca la cantidad de puntos que se disponen\n");
  scanf("%f", &cantidadPuntos);
- printf("Introduzca el grado de la ecuacion\n"); 
+ printf("Introduzca el grado de la ecuacion a aproximar\n"); 
  scanf("%d", &gradoEcuacion);
  printf("Ingrese los valores de X y Y de los puntos\n");
 
@@ -150,10 +151,6 @@ for(contador=0; contador<gradoEcuacion+1; contador++)
  printf("\n");
 }
 
-
-/*HASTA AQUI VAS BIEN*/
-
-
 //Para resolver matriz con metodo de Gauss-Jordan
 /*Se crea una matriz con ceros en todas las entradas excepto en la diagonal
 para después despejar los valores de x0, x1... xn con mayor facilidad*/
@@ -169,7 +166,7 @@ for(columna=0;columna<(gradoEcuacion+1);columna++)
    temporalMatriz=matriz[renglon][columna];
   for(contador=0; contador<(gradoEcuacion+2); contador++)
   {
-   //Se efectua la operacion para dejar cero en una entrada y afectar a las otras entradas del mismos renglón con la misma operacion
+   //Se efectua la operacion para dejar cero en una entrada y afectar a las otras entradas del mismos renglon con la misma operacion
    matriz[renglon][contador]=(matriz[columna][columna]*matriz[renglon][contador])-(temporalMatriz*matriz[columna][contador]);
   }
   }
@@ -210,7 +207,7 @@ for(contador=0; contador<(gradoEcuacion+1); contador++)
   printf("%fx^%d + ", matriz[contador][gradoEcuacion+1], contador);
  }
 }
-//Se libera memoria reservada para vectores con valores de X, Y y para la matriz donde se resolvió el sistema de ecuaciones
+//Se libera memoria reservada para vectores con valores de X, Y y para la matriz donde se resolvio el sistema de ecuaciones
 free(valoresX);
 free(valoresY);
 for(renglon=0; renglon<gradoEcuacion+1; renglon++)
