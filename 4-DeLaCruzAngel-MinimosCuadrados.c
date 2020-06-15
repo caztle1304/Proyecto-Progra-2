@@ -217,4 +217,5 @@ for(renglon=0; renglon<gradoEcuacion+1; renglon++)
 {
  free(matriz[renglon]);
 }
+free(matriz);
 }
