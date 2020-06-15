@@ -7,9 +7,9 @@ AUTHOR
 DESCRIPTION
       Programa que calcula area bajo la curva usando metodo de Simpson
 CATEGORY
-       Calculadora de raices de ecuaciones
+       Calculadora de area bajo la curva
 USAGE
-        ingresa su funcion, los limites superior e inferior y el numero de bandas a usar para el calculo del area
+       Usuario ingresa su funcion, los limites superior e inferior y el numero de bandas a usar para el calculo del area
 ARGUMENTS
   N/A
 DICCIONARIO DE VARIABLES
@@ -17,7 +17,7 @@ ecuacionInicial: funcion a partir de la cual se calcula area bajo la curva
 limInferior: limite inferior del intervalo a obtener el area
 limSuperior: limte superior del intervalo a obtener el area
 bandas: numero de bandas (subintervalos) a usar para calcular el area
-h: tamaño de subintervalo
+h: tamano de subintervalo
 fDeEquis: diccionario de posiciones de X asociados a su f(x)
 contador: variable contadora auxiliar en ciclos
 acumulador: variable contadora auxiliar en aumentos decimales que no pueden ser implementados en un ciclo
@@ -36,6 +36,8 @@ from math import *
 # Se establece x como simbolo
 
 x = symbols("x")
+
+print("Este programa calcula area bajo una curva usando metodo de Simpson\n")
 
 print("Ingresa tu ecuacion inicial")
 
@@ -73,7 +75,7 @@ fDeEquis = {}
 acumulador = limInferior
 
 '''
-Se añaden valores de f(x) asociados a x, se exluyen x0 y xn
+Se anaden valores de f(x) asociados a x, se exluyen x0 y xn
 para que no se multiplique por 4 o por 2 al hacer la multiplicacion de la formula
 '''
 
@@ -83,7 +85,6 @@ for contador in range(bandas-1):
     fDeEquis[contador] = ecuacionInicial.subs(x, acumulador)
     fDeEquis[contador] = fDeEquis[contador].evalf()
 
-print(fDeEquis)
 
 acumulador4 = 0
 acumulador2 = 0
@@ -98,14 +99,10 @@ por 2 en lugar de por 4
 for contador in range(0, bandas-1, 2):
 
     acumulador4 =  acumulador4 + (4 * fDeEquis[contador])
-    print("contador 4")
-    print(contador)
     
 for contador in range(1, bandas-1, 2):
 
     acumulador2 = acumulador2 + (2 * fDeEquis[contador])
-    print("contador 2")
-    print(contador)
 
 # Se evalua la funcion en x0    
 
