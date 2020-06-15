@@ -214,7 +214,7 @@ while aproximacionVariablesAnterior != aproximacionVariables:
         efeDeVariable = ecuacionSustituida.evalf()
 
 
-        # Añade el valor aproximado de la variable encontrado de sustituir los valores aproximados encontrados
+        # Anade el valor aproximado de la variable encontrado de sustituir los valores aproximados encontrados
 
         aproximacionVariables[letra1] = round(efeDeVariable, numDecimales)
 
@@ -227,4 +227,3 @@ print("\nLos resultados obtenidos son: \n")
 print(aproximacionVariables)
 
 print(f"Completado en {contadorCiclo} iteraciones")  		
-
