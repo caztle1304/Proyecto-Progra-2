@@ -5,7 +5,7 @@ VERSION
 AUTHOR
         Angel Adrian De la Cruz Castillo <angeldc@lcg.unam.mx>
 DESCRIPTION
-      Programa que calcula raíces de ecuaciones usando el metodo de regula falsi
+      Programa que calcula raices de ecuaciones usando el metodo de regula falsi
 CATEGORY
        Calculadora de raices de ecuaciones
 USAGE
@@ -41,6 +41,8 @@ from math import *
 
 x = symbols("x")
 
+print("Este programa encuentra raices de ecuaciones en intervalos dados usando el metodo de regula falsi\n")
+
 print("Escribe tu ecuacion inicial")
 ecuacionInicial = input()
 
@@ -50,13 +52,16 @@ ecuacionInicial = sympify(ecuacionInicial)
 
 
 print("Escribe el limite inferior del intervalo a evaluar")
-limInferior = float(input())
+limInferior = input()
+limInferior = sympify(limInferior)
 
 print("Escribe el limite superior del intervalo a evaluar")
-limSuperior = float(input())
+limSuperior = input()
+limSuperior = sympify(limSuperior)
 
 print("Escribe el paso de incremento para evaluar tu funcion")
-step = float(input())
+step = input()
+step = sympify(step)
 
 print("Escribe el numero de decimales de exactitud que requieres")
 numDecimales = int(input())
@@ -153,7 +158,4 @@ while (round(equisEne, numDecimales)) != (round(equisEneMasUno, numDecimales)):
 
     equisEneMasUno = ((equisEne * efeDeK) - (k * efeDeEquisEne)) / (efeDeK - efeDeEquisEne)
 
-print(f"La raiz de tu ecuacion en el intervalo dado es {equisEne}")
-
-
-
+print(f"La raiz de tu ecuacion en el intervalo dado es {round(equisEne, numDecimales)}")
