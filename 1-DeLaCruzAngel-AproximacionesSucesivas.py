@@ -5,7 +5,7 @@ VERSION
 AUTHOR
         Angel Adrian De la Cruz Castillo <angeldc@lcg.unam.mx>
 DESCRIPTION
-      Programa que calcula raíces de ecuaciones usando el metodo de aproximaciones sucesivas
+      Programa que calcula raices de ecuaciones usando el metodo de aproximaciones sucesivas
 CATEGORY
        Calculadora de raices de ecuaciones
 USAGE
@@ -14,7 +14,7 @@ ARGUMENTS
   N/A
 
 DICCIONARIO DE VARIABLES
-ecuacionInicial: Ecuacion intriducida por el usuario a la cual se quiere encontnrar la raiz
+ecuacionInicial: Ecuacion introducida por el usuario a la cual se quiere encontrar la raiz
 ecuacionDespejada: Ecuacion con el despeje deseado por el usuario
 limInferior: Limite inferior del intervalo a evaluar
 limSuperior: Limite superior del intervalo a evaluar
@@ -53,13 +53,16 @@ ecuacionDespejada = input()
 ecuacionDespejada = sympify(ecuacionDespejada)
 
 print("Escribe el limite inferior del intervalo a evaluar")
-limInferior = float(input())
+limInferior = input()
+limInferior = sympify(limInferior)
 
 print("Escribe el limite superior del intervalo a evaluar")
-limSuperior = float(input())
+limSuperior = input()
+limSuperior = sympify(limSuperior)
 
 print("Escribe el paso de incremento en la evaluacion de tu funcion")
-step = float(input())
+step = input()
+step = sympify (step)
 
 print("Escribe el numero de decimales de exactitud que requieres")
 numDecimales = int(input())
@@ -90,7 +93,6 @@ for posicion in fDeEquis:
     if (fDeEquis[posicionAnterior] < 0 and fDeEquis[posicion] > 0) or (fDeEquis[posicionAnterior] > 0 and fDeEquis[posicion] < 0): 
 
         equisCero = (posicion + posicionAnterior)/2
-        print (equisCero)
         break
     posicionAnterior = posicion
 
@@ -116,10 +118,6 @@ while (round(equis, numDecimales) != round(equisEneMasUno, numDecimales)):
     equisEneMasUno = equisEneMasUno.evalf()
 
 
-print(f"La raíz de tu ecuación en el intervalo dado es {round(equis,numDecimales)}")
-
-
-
-
+print(f"La raiz de tu ecuacion en el intervalo dado es {round(equis,numDecimales)}")
 
 
