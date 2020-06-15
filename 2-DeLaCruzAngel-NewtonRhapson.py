@@ -34,9 +34,11 @@ from sympy import *
 from sympy import *
 
 
-# Se establece x como símbolo
+# Se establece x como simbolo
 
 x = symbols("x")
+
+print("Este programa encuentra raices de ecuaciones usando el metodo de Newton-Rhapson\n")
 
 print("Escribe tu ecuacion inicial")
 
