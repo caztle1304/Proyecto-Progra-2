@@ -21,11 +21,13 @@ h: ancho de las bandas a utilizar para calcular la solucion
 yeEne: aproximacion yn de la solucion a la ecuacion
 equisEne: valor inicial de X a tomar en cuenta para el calculo de Yn+1
 contador: variable contadora auxiliar para imprimir las aproximaciones de Yn
+contador2: ayuda a hacer los ciclos for cuntas veces sea necesario
 yeEneMasUno: aproximacion de la solucion Yn+1
 
 '''
 from math import *
 from sympy import *
+from decimal import *
 
 # Establece x como simbolo
 
@@ -35,7 +37,9 @@ x = symbols("x")
 
 y = symbols("y")
 
-print("Escribe tu ecuacion inicial")
+print("Este programa calcula soluciones a ecuaciones diferenciales usando el metodo de Euler\n")
+
+print("Escribe tu ecuacion inicial en el formato dy/dx = ecuacion\n")
 
 ecuacionInicial = input()
 
@@ -47,7 +51,7 @@ print("Escribe tu x0")
 
 equisCero = input()
 
-equisCero = sympify(equisCero)
+equisCero = Decimal(equisCero)
 
 print("Escribe tu y0")
 
@@ -59,13 +63,13 @@ print("Escribe la x para la cual quieres la solucion")
 
 equisSolucion = input()
 
-equisSolucion = sympify(equisSolucion)
+equisSolucion = Decimal(equisSolucion)
 
 print("Escribe el ancho de banda h")
 
 h = input()
 
-h = sympify(h)
+h = Decimal(h)
 
 # Se le asigna el valor y0 a yn para iniciar el ciclo
 
@@ -73,11 +77,15 @@ yeEne = yeCero
 
 # Se le asigna el valor x0 a xn para iniciar el ciclo
 
-equisEne = equisCero
+equisEne = sympify(equisCero)
 
 contador = 0
 
-while equisEne < equisSolucion:
+#Se aplica la formula en el range para determinar el numero de veces que se repite el ciclo
+
+repeticiones = int(((equisSolucion - equisCero)/h))
+
+for contador2 in range(1, repeticiones + 1):
 
     contador = contador + 1
 
