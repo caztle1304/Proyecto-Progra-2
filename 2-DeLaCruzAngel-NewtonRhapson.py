@@ -5,7 +5,7 @@ VERSION
 AUTHOR
         Angel Adrian De la Cruz Castillo <angeldc@lcg.unam.mx>
 DESCRIPTION
-      Programa que calcula raíces de ecuaciones usando el metodo de Newton-Rhapson
+      Programa que calcula raices de ecuaciones usando el metodo de Newton-Rhapson
 CATEGORY
        Calculadora de raices de ecuaciones
 USAGE
@@ -48,15 +48,17 @@ ecuacionInicial = sympify(ecuacionInicial)
 
 derivada = ecuacionInicial.diff(x)
 
-print("Escribe el límite inferior del intervalo a evaluar")
-limInferior = float(input())
+print("Escribe el limite inferior del intervalo a evaluar")
+limInferior = input()
+limInferior = sympify(limInferior)
 
-print("Escribe el límite superior del intervalo a evaluar")
-limSuperior = float(input())
+print("Escribe el limite superior del intervalo a evaluar")
+limSuperior = input()
+limSuperior = sympify(limSuperior)
 
 print("Escribe el paso de aumento en la evaluacion de tu intervalo")
-step = float(input())
-
+step = input()
+step = sympify(step)
 print("Escribe el numero de decimales de exactitud que requieres")
 numDecimales = int(input())
 
@@ -75,29 +77,22 @@ while contador < (limSuperior + step):
     fDeEquis[contador] = fDeEquis[contador].evalf()
     contador = contador + step
 
-print(fDeEquis)
 # Se inicializa posicion anterior para que el primer valor del array pueda ser comparado con algo
 
 posicionAnterior = limInferior
 
 for posicion in fDeEquis:
     
-    print ("posicion")
-    print (fDeEquis[posicion])
-    print("Posicion anterior")
-    print(posicionAnterior)
-   
    # Al detectarse un cambio de signo en los valores de y, el proceso termina y equis cero es asignada
 
     if (fDeEquis[posicionAnterior] < 0 and fDeEquis[posicion] > 0) or (fDeEquis[posicionAnterior] > 0 and fDeEquis[posicion] < 0): 
 
         equisCero = (posicion + posicionAnterior) / 2
-        print (equisCero)
         break
     posicionAnterior = posicion
 
 
-# La primera iteración se hace fuera del ciclo para asignar valores iniciales
+# La primera iteracion se hace fuera del ciclo para asignar valores iniciales
 equis = equisCero
 equisEneMasUno = equisCero - ((ecuacionInicial.subs(x, equis)) / (derivada.subs(x, equis)))
 equisEneMasUno = equisEneMasUno.evalf()
@@ -118,4 +113,4 @@ while(round(equis, numDecimales)) != (round(equisEneMasUno, numDecimales)):
     equisEneMasUno = equisEneMasUno.evalf()
 
 
-print(f"La raiz de tu ecuación en el intervalo dado es {round(equis, numDecimales)}")
+print(f"La raiz de tu ecuacion en el intervalo dado es {round(equis, numDecimales)}")
