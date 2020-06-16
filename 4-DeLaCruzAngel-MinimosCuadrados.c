@@ -81,7 +81,7 @@ int main ()
   	{
   	 //Con cada cambio de columna la suma de X^n se reinicia
   	 sumaX = 0;
-  	 /*Si la casilla es la [0][0], es decir cuando el iniciador de potencia no ha detectado ningún cambio de renglon, 
+  	 /*Si la casilla es la [0][0], es decir cuando el iniciador de potencia no ha detectado ningun cambio de renglon, 
   	 el valor de la casilla es asignado a la cantidad de puntos ingresados por el usuario*/
      if(potencia==-1)
      {
@@ -153,7 +153,7 @@ for(contador=0; contador<gradoEcuacion+1; contador++)
 
 //Para resolver matriz con metodo de Gauss-Jordan
 /*Se crea una matriz con ceros en todas las entradas excepto en la diagonal
-para después despejar los valores de x0, x1... xn con mayor facilidad*/
+para despues despejar los valores de x0, x1... xn con mayor facilidad*/
 for(columna=0;columna<(gradoEcuacion+1);columna++)
 {
  for(renglon=0; renglon<(gradoEcuacion+1);renglon++)
@@ -161,7 +161,7 @@ for(columna=0;columna<(gradoEcuacion+1);columna++)
    //Las operaciones siguientes solo se hacen fuera de los valores de la diagonal porque esos son necesarios para el  despeje final
    if(renglon!=columna)
    {
-   /*Se crea variable temporal que multiplica al renglón que se quiere simplificar y se lo resta 
+   /*Se crea variable temporal que multiplica al renglon que se quiere simplificar y se lo resta 
    	al valor de cada casilla para dejar cero la casilla de cada renglon de la columna n y afectar a los demas valores del mismo renglon*/
    temporalMatriz=matriz[renglon][columna];
   for(contador=0; contador<(gradoEcuacion+2); contador++)
